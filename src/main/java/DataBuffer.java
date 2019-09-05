@@ -6,9 +6,11 @@ public class DataBuffer {
 
     LinkedList<String> lines = new LinkedList();
     private final Semaphore available = new Semaphore(0,true);
-    public String getLine() throws InterruptedException
+    public synchronized String getLine() throws InterruptedException
     {
         available.acquire();
+        //if (lines.isEmpty())
+        //    return null;
         return lines.pop();
     }
     public void putLine(String line)

@@ -18,7 +18,7 @@ public class DataConsumer implements Runnable {
                 String l = db.getLine();
                 String[] values;
                 if (l != null) {
-                    values = l.split(",");
+                    values = l.split(";");
                     // Respostas
                     String TX_RESPOSTAS_CN = values[95];
                     String TX_RESPOSTAS_CH = values[96];
