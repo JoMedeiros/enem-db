@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <dependencies>
-        <!-- https://mvnrepository.com/artifact/org.openjdk.jcstress/jcstress-core -->
+        <!-- https://mvnrepository.com/artifact/org.openjdk.jcstress/jcstress-core
         <dependency>
             <groupId>org.openjdk.jcstress</groupId>
             <artifactId>jcstress-core</artifactId>
@@ -17,7 +17,7 @@
             <artifactId>jcstress-core</artifactId>
             <version>0.5</version>
             <scope>compile</scope>
-        </dependency>
+        </dependency> -->
 
     </dependencies>
 

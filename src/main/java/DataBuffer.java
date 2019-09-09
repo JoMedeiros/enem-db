@@ -1,21 +1,20 @@
 import java.util.LinkedList;
+import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.Semaphore;
 
 public class DataBuffer {
     volatile boolean finished = false; // OBS: Not a good idea
-
-    LinkedList<String> lines = new LinkedList();
+    private final ConcurrentLinkedQueue<String> lines = new ConcurrentLinkedQueue<>();
     private final Semaphore available = new Semaphore(0,true);
-    public synchronized String getLine() throws InterruptedException
+
+    public String getLine() throws InterruptedException
     {
         available.acquire();
-        //if (lines.isEmpty())
-        //    return null;
-        return lines.pop();
+        return lines.remove();
     }
     public void putLine(String line)
     {
-        lines.push(line);
+        lines.add(line);
         available.release();
     }
     boolean isEmpty(){
