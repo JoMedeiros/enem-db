@@ -1,0 +1,4 @@
+classes/
+target/
+*.class
+MICRODADOS_ENEM_2018.csv

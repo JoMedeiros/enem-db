@@ -1,12 +1,13 @@
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.FileReader;
 
 public class DataProducer extends Thread {
     private FileReader fileReader;
     private DataBuffer dataBuffer;
-    public DataProducer(FileReader fileReader, DataBuffer dataBuffer){
-        this.fileReader = fileReader;
-        this.dataBuffer = dataBuffer;
+    public DataProducer(String fileName, DataBuffer dataBuffer) throws FileNotFoundException {
+            this.fileReader = new FileReader(fileName);
+            this.dataBuffer = dataBuffer;
     }
     @Override
     public void run() {
@@ -23,12 +24,13 @@ public class DataProducer extends Thread {
             }
             // Read values
             int numLines = 1_000;
-            //line = bufferedReader.readLine();
-            //while( line != null ) {
-            for (int i = 0; i < numLines; i++) {
+            line = bufferedReader.readLine();
+            while( line != null ) {
+                //for (int i = 0; i < numLines; i++) {
                 dataBuffer.putLine(line);
                 line = bufferedReader.readLine();
             }
+            this.fileReader = null;
             System.out.println("Finished loading");
             dataBuffer.setFinished();
         }
