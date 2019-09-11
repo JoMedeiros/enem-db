@@ -1,7 +1,4 @@
-import java.io.BufferedReader;
 import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
 
 public class Main {
 
@@ -20,7 +17,7 @@ public class Main {
             dataProducer.start();
             long conumerStartTime = System.currentTimeMillis();
             for (int i = 0; i < numberOfThreads; i++) {
-                consumers[i] = (new Thread(new DataConsumer(dataBuffer, resultado)));
+                consumers[i] = (new Thread(new DataAnalyzer(dataBuffer, resultado)));
                 consumers[i].start();
             }
 

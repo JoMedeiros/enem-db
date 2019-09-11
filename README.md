@@ -1,4 +1,8 @@
-# EnemDB
+# Enem DataBase
+
+## Descrição
+
+Uma aplicação para analisar os resultados do Enem 2018.
 
 ## VM Options
 
@@ -22,6 +26,6 @@ Opção do GC para remover Strings duplicadas:
 ### Checklist
 
 - [ ] Mostrar todas as Respostas
-    - [ ] Criar uma função para modularizar a contagem de gabarito na classe DataConsumer e Result
+    - [ ] Criar uma função para modularizar a contagem de gabarito na classe DataAnalyzer e Result
 - [ ] Armazenar informações
 - [ ] Criar uma classe de filtros

@@ -25,8 +25,8 @@ public class DataProducer extends Thread {
             // Read values
             int numLines = 1_000;
             line = bufferedReader.readLine();
-            while( line != null ) {
-                //for (int i = 0; i < numLines; i++) {
+            //while( line != null ) {
+            for (int i = 0; i < numLines; i++) {
                 dataBuffer.putLine(line);
                 line = bufferedReader.readLine();
             }
