@@ -1,11 +1,16 @@
 import java.util.Scanner;
+import java.util.TreeMap;
 
 /**
  * @brief Terminal User Interface.
  */
 public class TUI implements Runnable {
+    private static DataBase dataBase;
+    private static Result result;
     private final Scanner sc = new Scanner(System.in);
     private static final TUI INSTANCE = new TUI();
+    private Filter filter = new Filter();
+    private static Thread[] dataAnalyzers;
 
     private TUI(){}
 
@@ -13,23 +18,77 @@ public class TUI implements Runnable {
         return INSTANCE;
     }
 
+    public static void setDataBase(DataBase dataBase) {
+        TUI.dataBase = dataBase;
+    }
+
+    public static void setResult(Result result) {
+        TUI.result = result;
+    }
+
+    public static void setAnalyzers(Thread[] analyzers) {
+        dataAnalyzers = analyzers;
+    }
+
     @Override
     public void run() {
-        char opt = ' ';
-        while (opt != 'q'){
-            System.out.println("Bem-vindo aos Dados Enem 2018!");
-            System.out.println("Opções:");
-            System.out.println("f - aplicar filtros");
-            System.out.println("q - sair");
-            opt = this.sc.next().charAt(0);
-            this.handleInput(opt);
+        try {
+            handleInput();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
         }
     }
 
-    private void handleInput(char opt) {
-        if (opt == 'f'){
+    private void handleInput() throws InterruptedException {
+        int option = 0;
+        while (option != 4) {
             System.out.println("Aplicando filtros...");
-            String options = this.sc.nextLine();
+            System.out.println("1 - Selecione os filtros");
+            System.out.println("2 - Remover fitros");
+            System.out.println("3 - Aplicar Consulta");
+            System.out.println("4 - Sair");
+            option = this.sc.nextInt();
+            if (option == 1) {
+                addFilter();
+            }
+            else if (option == 3) {
+                runAnalyzers();
+            }
+            else if (option == 4){
+                System.out.println("Fechando programa...");
+            }
+            else {
+                System.out.println("Opção inválida");
+            }
+        }
+    }
+
+    private void runAnalyzers() throws InterruptedException {
+        System.out.println("Gerando resultados...");
+        long startTime = System.currentTimeMillis();
+        for (int i = 0; i < dataAnalyzers.length; i++) {
+            dataAnalyzers[i] = new Thread(new DataAnalyzer(dataBase, result));
+            dataAnalyzers[i].start();
+        }
+        for (Thread analyzer : dataAnalyzers) {
+            analyzer.join();
+        }
+        result.print();
+        long stopTime = System.currentTimeMillis();
+        long elapsedTime = stopTime - startTime;
+        System.out.println("Tempo para analisar os dados em milisegundos: " + elapsedTime);
+        dataBase.reset();
+        result.reset();
+    }
+
+    private void addFilter(){
+        boolean out = false;
+        while (!out) {
+            System.out.println("1 - Estado");
+            int option = this.sc.nextInt();
+            if (option == 1) {
+
+            }
         }
     }
 }

@@ -1,47 +1,19 @@
-import java.io.FileNotFoundException;
-
 public class Main {
 
-    public static void main(String [] args) throws InterruptedException {
-        try {
-            // Creating objects
-            long startTime = System.currentTimeMillis();
-            int numberOfThreads = 4;
-            DataBuffer dataBuffer = new DataBuffer();
-            DataProducer dataProducer = new DataProducer("MICRODADOS_ENEM_2018.csv", dataBuffer);
-            Result resultado = new Result();
-            Thread[] consumers = new Thread[numberOfThreads];
-            Thread tui = new Thread(TUI.getINSTANCE());
+    public static void main(String[] args) throws InterruptedException {
+        long startTime = System.currentTimeMillis();
+        DataBase dataBase = new DataBase();
+        Thread loader = new Thread(new DataBaseLoader(dataBase));
+        loader.start();
+        loader.join();
+        long stopTime = System.currentTimeMillis();
+        long elapsedTime = stopTime - startTime;
+        System.out.println("Time to load file in milliseconds: " + elapsedTime);
 
-            // Running Threads
-            dataProducer.start();
-            long conumerStartTime = System.currentTimeMillis();
-            for (int i = 0; i < numberOfThreads; i++) {
-                consumers[i] = (new Thread(new DataAnalyzer(dataBuffer, resultado)));
-                consumers[i].start();
-            }
-
-            // Finishing Threands
-            dataProducer.join();
-            long stopTime = System.currentTimeMillis();
-            long elapsedTime = stopTime - startTime;
-            System.out.println("Time to load file in milliseconds: " + elapsedTime);
-
-            tui.start();
-
-            for (int i = 0; i < numberOfThreads; i++) {
-                consumers[i].join();
-            }
-            long consumerStopTime = System.currentTimeMillis();
-            long consumerElapsedTime = consumerStopTime - conumerStartTime;
-
-            System.out.println("Tempo de consumo das Strings:" + consumerElapsedTime);
-            tui.join();
-            resultado.print();
-        }
-        catch (FileNotFoundException e) {
-            System.out.println("O arquivo não foi encontrado. Saindo do programa...");
-        }
-
+        Thread [] analyzers = new Thread[1];
+        TUI.setDataBase(dataBase);
+        TUI.setResult( new Result() );
+        TUI.setAnalyzers(analyzers);
+        (new Thread(TUI.getINSTANCE())).start();
     }
 }
