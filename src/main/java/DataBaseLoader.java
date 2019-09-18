@@ -20,7 +20,7 @@ public class DataBaseLoader implements Runnable {
             line = bufferedReader.readLine();
             String[] cells = line.split(";");
             // Read values
-            int numLines = 2000;
+            int numLines = 100000;
             line = bufferedReader.readLine();
             //while( line != null ) {
             for (int i = 0; i < numLines; i++) {

@@ -72,7 +72,7 @@ public class TUI implements Runnable {
         System.out.println("Gerando resultados...");
         long startTime = System.currentTimeMillis();
         for (int i = 0; i < 2; i++) {
-            exec.execute(new DataAnalyzer(dataBase, result));
+            exec.submit(new DataAnalyzer(dataBase, result));
             //dataAnalyzers[i] = new Thread(new DataAnalyzer(dataBase, result));
             //dataAnalyzers[i].start();
         }

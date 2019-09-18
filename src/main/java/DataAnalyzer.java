@@ -1,4 +1,6 @@
-public class DataAnalyzer implements Runnable {
+import java.util.concurrent.Callable;
+
+public class DataAnalyzer implements Callable {
     DataBase data;
     Result result;
     public DataAnalyzer(DataBase dataBase, Result result){
@@ -6,7 +8,8 @@ public class DataAnalyzer implements Runnable {
         this.result = result;
     }
 
-    public void run() {
+    @Override
+    public Object call() {
         while (!data.isFinished()) {
             String [] line = data.getLine();
             // Respostas
@@ -30,6 +33,7 @@ public class DataAnalyzer implements Runnable {
                 e.printStackTrace();
             }
         }
+        return null;
     }
     private void gerarResultado(String respostas, String gabarito, String prova) throws InterruptedException {
         byte[] resultado = new byte[45];
