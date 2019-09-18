@@ -1,5 +1,8 @@
 import java.util.Scanner;
 import java.util.TreeMap;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * @brief Terminal User Interface.
@@ -10,7 +13,8 @@ public class TUI implements Runnable {
     private final Scanner sc = new Scanner(System.in);
     private static final TUI INSTANCE = new TUI();
     private Filter filter = new Filter();
-    private static Thread[] dataAnalyzers;
+    //private static Runnable[] dataAnalyzers;
+    private static final ExecutorService exec = Executors.newFixedThreadPool(100);
 
     private TUI(){}
 
@@ -26,9 +30,9 @@ public class TUI implements Runnable {
         TUI.result = result;
     }
 
-    public static void setAnalyzers(Thread[] analyzers) {
-        dataAnalyzers = analyzers;
-    }
+    //public static void setAnalyzers(Runnable[] analyzers) {
+    //    //dataAnalyzers = analyzers;
+    //}
 
     @Override
     public void run() {
@@ -55,6 +59,7 @@ public class TUI implements Runnable {
                 runAnalyzers();
             }
             else if (option == 4){
+                exec.shutdown();
                 System.out.println("Fechando programa...");
             }
             else {
@@ -66,13 +71,14 @@ public class TUI implements Runnable {
     private void runAnalyzers() throws InterruptedException {
         System.out.println("Gerando resultados...");
         long startTime = System.currentTimeMillis();
-        for (int i = 0; i < dataAnalyzers.length; i++) {
-            dataAnalyzers[i] = new Thread(new DataAnalyzer(dataBase, result));
-            dataAnalyzers[i].start();
+        for (int i = 0; i < 2; i++) {
+            exec.execute(new DataAnalyzer(dataBase, result));
+            //dataAnalyzers[i] = new Thread(new DataAnalyzer(dataBase, result));
+            //dataAnalyzers[i].start();
         }
-        for (Thread analyzer : dataAnalyzers) {
-            analyzer.join();
-        }
+        //for (Thread analyzer : dataAnalyzers) {
+        //    analyzer.join();
+        //}
         result.print();
         long stopTime = System.currentTimeMillis();
         long elapsedTime = stopTime - startTime;

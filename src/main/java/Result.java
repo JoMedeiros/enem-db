@@ -1,13 +1,11 @@
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.atomic.AtomicReferenceArray;
 
 public class Result {
     //private Hashtable<String, Integer> totais = new Hashtable<>(); // Número de provas analisadas
-    private  Hashtable<String, AtomicInteger> totais = new Hashtable<>(); // Número de provas analisadas
-    private Hashtable<String, AtomicInteger[]> acertos = new Hashtable<>(); // Totais de acerto por questão
+    private Hashtable<String, AtomicInteger> totais = new Hashtable<String, AtomicInteger>(); // Número de provas analisadas
+    private Hashtable<String, AtomicInteger[]> acertos = new Hashtable<String, AtomicInteger[]>(); // Totais de acerto por questão
     private String [] provas = {"CN","CH","LC","MT"};
     private String [] provasExtenso = {"Ciências da Natureza","Ciências Humanas","Linguagens e Códigos","Matemática"};
     private boolean finished = false;
@@ -43,6 +41,14 @@ public class Result {
         totais.get(prova).incrementAndGet();
         //available.release();
     }
+
+    /**
+     * @brief Função para teste JCStress
+     * @return
+     */
+    public AtomicInteger[] getResult(String prova) {
+        return this.acertos.get(prova);
+    }
     public void setFinished(){
         finished = true;
     }
@@ -62,8 +68,8 @@ public class Result {
         }
     }
     public void reset() {
-        totais = new Hashtable<>();
-        acertos = new Hashtable<>();
+        totais = new Hashtable<String, AtomicInteger>();
+        acertos = new Hashtable<String, AtomicInteger[]>();
         initialize();
     }
 }

@@ -10,10 +10,10 @@ public class Main {
         long elapsedTime = stopTime - startTime;
         System.out.println("Time to load file in milliseconds: " + elapsedTime);
 
-        Thread [] analyzers = new Thread[1];
+        //Runnable [] analyzers = new Runnable[2];
         TUI.setDataBase(dataBase);
         TUI.setResult( new Result() );
-        TUI.setAnalyzers(analyzers);
+        //TUI.setAnalyzers(analyzers);
         (new Thread(TUI.getINSTANCE())).start();
     }
 }
