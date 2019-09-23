@@ -23,6 +23,15 @@ public class Result {
             totais.put(prova, new AtomicInteger(0));
         }
     }
+
+    /**
+     * A Class to use in jcstress test
+     * @return
+     */
+    public Hashtable<String, AtomicInteger[]> getAcertos() {
+        return acertos;
+    }
+
     /**
      * @brief Incrementa o contador de acertos na prova.
      * @param respostas Um vetor que representa os acertos de um aluno. Cada valor representa acerto com 1 e erro com 0.

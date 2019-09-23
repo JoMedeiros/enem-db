@@ -2,7 +2,7 @@ import java.util.concurrent.Callable;
 import java.util.concurrent.RecursiveAction;
 
 public class DataAnalyzer extends RecursiveAction {
-    private static final int SEQUENTIAL_THRESHOLD =5000;
+    private static final int SEQUENTIAL_THRESHOLD = 5000;
     DataBase data;
     Result result;
     public DataAnalyzer(DataBase dataBase, Result result){
