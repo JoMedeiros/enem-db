@@ -3,6 +3,7 @@ import java.util.TreeMap;
 import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ForkJoinPool;
 
 /**
  * @brief Terminal User Interface.
@@ -71,14 +72,12 @@ public class TUI implements Runnable {
     private void runAnalyzers() throws InterruptedException {
         System.out.println("Gerando resultados...");
         long startTime = System.currentTimeMillis();
-        for (int i = 0; i < 2; i++) {
-            exec.submit(new DataAnalyzer(dataBase, result));
-            //dataAnalyzers[i] = new Thread(new DataAnalyzer(dataBase, result));
-            //dataAnalyzers[i].start();
-        }
-        //for (Thread analyzer : dataAnalyzers) {
-        //    analyzer.join();
+        //for (int i = 0; i < 2; i++) {
+        //    exec.submit(new DataAnalyzer(dataBase, result));
         //}
+        ForkJoinPool pool = ForkJoinPool.commonPool();
+        DataAnalyzer task = new DataAnalyzer(dataBase, result);
+        pool.invoke(task);
         result.print();
         long stopTime = System.currentTimeMillis();
         long elapsedTime = stopTime - startTime;

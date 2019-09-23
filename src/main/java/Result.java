@@ -42,6 +42,15 @@ public class Result {
         //available.release();
     }
 
+    public void sum(Result result){
+        for (String pv : provas) {
+            for (int i = 0; i < this.acertos.get(pv).length; i++) {
+                this.acertos.get(pv)[i].addAndGet(result.acertos.get(pv)[i].get());
+            }
+            this.totais.get(pv).addAndGet(result.totais.get(pv).get());
+        }
+    }
+
     /**
      * @brief Função para teste JCStress
      * @return

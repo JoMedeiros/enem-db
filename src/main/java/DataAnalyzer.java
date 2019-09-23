@@ -1,6 +1,8 @@
 import java.util.concurrent.Callable;
+import java.util.concurrent.RecursiveAction;
 
-public class DataAnalyzer implements Callable {
+public class DataAnalyzer extends RecursiveAction {
+    private static final int SEQUENTIAL_THRESHOLD =5000;
     DataBase data;
     Result result;
     public DataAnalyzer(DataBase dataBase, Result result){
@@ -8,8 +10,25 @@ public class DataAnalyzer implements Callable {
         this.result = result;
     }
 
-    @Override
-    public Object call() {
+    protected void compute() {
+        if (data.size() <= SEQUENTIAL_THRESHOLD) { // base case
+            computeResult();
+        }
+        else { // recursive case
+            // Calcuate new range
+            int mid = data.size() / 2;
+            DataAnalyzer firstSubtask =
+                    new DataAnalyzer(data.subList(0, mid), new Result());
+            DataAnalyzer secondSubtask = new DataAnalyzer(data.subList(mid, data.size()), new Result());
+            firstSubtask.fork(); // queue the first task
+            secondSubtask.compute(); // compute the second task
+            firstSubtask.join(); // wait for the first task result
+            secondSubtask.result.sum(firstSubtask.result);
+            this.result.sum(secondSubtask.result);
+            // invokeAll(firstSubtask, secondSubtask);
+        }
+    }
+    public void computeResult() {
         while (!data.isFinished()) {
             String [] line = data.getLine();
             // Respostas
@@ -33,8 +52,8 @@ public class DataAnalyzer implements Callable {
                 e.printStackTrace();
             }
         }
-        return null;
     }
+
     private void gerarResultado(String respostas, String gabarito, String prova) throws InterruptedException {
         byte[] resultado = new byte[45];
         int numQ = 45;
