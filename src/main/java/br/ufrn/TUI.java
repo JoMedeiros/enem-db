@@ -38,7 +38,8 @@ public class TUI implements Runnable {
     @Override
     public void run() {
         try {
-            handleInput();
+            runAnalyzers();
+            //handleInput();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

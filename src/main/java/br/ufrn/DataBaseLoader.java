@@ -4,6 +4,8 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class DataBaseLoader implements Runnable {
     DataBase data = new DataBase();
@@ -28,6 +30,7 @@ public class DataBaseLoader implements Runnable {
             for (int i = 0; i < numLines; i++) {
                 cells = line.split(";");
                 cleanData(cells);
+                //data.add(new ArrayList<String>(Arrays.asList(cells)));
                 data.add(cells);
 
                 //dataBuffer.putLine(line);

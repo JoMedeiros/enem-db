@@ -3,6 +3,7 @@ package br.ufrn;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.stream.Stream;
 
 public class DataBase {
     //private int i = 0;
@@ -42,6 +43,9 @@ public class DataBase {
     }
     public int size(){
         return lines.size();
+    }
+    public Stream parallelStream(){
+        return this.lines.parallelStream();
     }
     public void reset(){
         i.set(0);

@@ -1,9 +1,11 @@
 package br.ufrn;
 
 import java.util.concurrent.RecursiveAction;
+import java.util.function.Consumer;
+import java.util.stream.Stream;
 
 public class DataAnalyzer extends RecursiveAction {
-    private static final int SEQUENTIAL_THRESHOLD = 5000;
+    private static final int SEQUENTIAL_THRESHOLD = 100000;
     DataBase data;
     Result result;
     public DataAnalyzer(DataBase dataBase, Result result){
@@ -30,8 +32,7 @@ public class DataAnalyzer extends RecursiveAction {
         }
     }
     public void computeResult() {
-        while (!data.isFinished()) {
-            String [] line = data.getLine();
+        Consumer<String[]> gerarResultado = line -> {
             // Respostas
             String TX_RESPOSTAS_CN = line[94];
             String TX_RESPOSTAS_CH = line[95];
@@ -52,7 +53,31 @@ public class DataAnalyzer extends RecursiveAction {
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-        }
+        };
+        this.data.parallelStream().forEach(gerarResultado);
+//        while (!data.isFinished()) {
+//            String [] line = data.getLine();
+//            // Respostas
+//            String TX_RESPOSTAS_CN = line[94];
+//            String TX_RESPOSTAS_CH = line[95];
+//            String TX_RESPOSTAS_LC = line[96];
+//            String TX_RESPOSTAS_MT = line[97];
+//            //String TP_LINGUA = line[98];
+//            // Gabaritos:
+//            String TX_GABARITO_CN = line[99];
+//            String TX_GABARITO_CH = line[100];
+//            String TX_GABARITO_LC = line[101];
+//            String TX_GABARITO_MT = line[102];
+//            // Resultado
+//            try {
+//                gerarResultado(TX_RESPOSTAS_CN, TX_GABARITO_CN, "CN");
+//                gerarResultado(TX_RESPOSTAS_CH, TX_GABARITO_CH, "CH");
+//                gerarResultado(TX_RESPOSTAS_LC, TX_GABARITO_LC, "LC");
+//                gerarResultado(TX_RESPOSTAS_MT, TX_GABARITO_MT, "MT");
+//            } catch (InterruptedException e) {
+//                e.printStackTrace();
+//            }
+//        }
     }
 
     private void gerarResultado(String respostas, String gabarito, String prova) throws InterruptedException {
