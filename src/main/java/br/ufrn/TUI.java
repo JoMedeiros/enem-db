@@ -1,6 +1,6 @@
+package br.ufrn;
+
 import java.util.Scanner;
-import java.util.TreeMap;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ForkJoinPool;
@@ -73,7 +73,7 @@ public class TUI implements Runnable {
         System.out.println("Gerando resultados...");
         long startTime = System.currentTimeMillis();
         //for (int i = 0; i < 2; i++) {
-        //    exec.submit(new DataAnalyzer(dataBase, result));
+        //    exec.submit(new br.ufrn.DataAnalyzer(dataBase, result));
         //}
         ForkJoinPool pool = ForkJoinPool.commonPool();
         DataAnalyzer task = new DataAnalyzer(dataBase, result);

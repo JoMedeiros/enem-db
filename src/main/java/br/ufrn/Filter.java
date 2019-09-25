@@ -1,3 +1,5 @@
+package br.ufrn;
+
 import java.util.ArrayList;
 import java.util.List;
 

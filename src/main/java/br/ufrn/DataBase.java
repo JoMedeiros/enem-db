@@ -1,3 +1,5 @@
+package br.ufrn;
+
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.concurrent.atomic.AtomicInteger;
@@ -7,8 +9,7 @@ public class DataBase {
     private AtomicInteger i = new AtomicInteger(0);
     private CopyOnWriteArrayList lines = new CopyOnWriteArrayList();
 
-    DataBase(){
-
+    public DataBase(){
     }
     /**
      * Constructor to use with Fork

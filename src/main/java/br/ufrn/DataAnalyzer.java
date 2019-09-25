@@ -1,4 +1,5 @@
-import java.util.concurrent.Callable;
+package br.ufrn;
+
 import java.util.concurrent.RecursiveAction;
 
 public class DataAnalyzer extends RecursiveAction {

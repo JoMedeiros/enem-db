@@ -440,7 +440,7 @@ Iteration  19: 1062590364,437 ops/s
 Iteration  20: 1061793289,379 ops/s
 
 
-Result "jmh.BenchTest.init":
+br.ufrn.Result "jmh.BenchTest.init":
   1059715796,109 ±(99.9%) 1193224,666 ops/s [Average]
   (min, avg, max) = (1029329287,321, 1059715796,109, 1063172277,687), stdev = 5052187,952
   CI (99.9%): [1058522571,443, 1060909020,775] (assumes normal distribution)

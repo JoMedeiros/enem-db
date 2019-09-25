@@ -1,3 +1,5 @@
+package br.ufrn;
+
 import java.util.Hashtable;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.atomic.AtomicInteger;

@@ -1,4 +1,4 @@
-# Enem DataBase
+# Enem br.ufrn.DataBase
 
 ## Descrição
 
@@ -30,6 +30,6 @@ Opções Sugeridas:
 ### Checklist
 
 - [ ] Mostrar todas as Respostas
-    - [ ] Criar uma função para modularizar a contagem de gabarito na classe DataAnalyzer e Result
+    - [ ] Criar uma função para modularizar a contagem de gabarito na classe br.ufrn.DataAnalyzer e br.ufrn.Result
 - [ ] Armazenar informações
 - [ ] Criar uma classe de filtros

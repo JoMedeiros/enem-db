@@ -1,3 +1,5 @@
+package br.ufrn;
+
 public class Main {
 
     public static void main(String[] args) throws InterruptedException {
@@ -13,7 +15,7 @@ public class Main {
         //Runnable [] analyzers = new Runnable[2];
         TUI.setDataBase(dataBase);
         TUI.setResult( new Result() );
-        //TUI.setAnalyzers(analyzers);
+        //br.ufrn.TUI.setAnalyzers(analyzers);
         (new Thread(TUI.getINSTANCE())).start();
     }
 }
