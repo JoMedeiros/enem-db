@@ -1,8 +1,10 @@
 package br.ufrn;
 
+import java.util.ArrayList;
+
 public class Option {
     private int index;
-    private String value;
+    private ArrayList<String> value;
 
     public int getIndex() {
         return index;
@@ -12,16 +14,17 @@ public class Option {
         this.index = index;
     }
 
-    public String getValue() {
+    public ArrayList<String> getValue() {
         return value;
     }
 
     public void setValue(String value) {
-        this.value = value;
+        this.value.add( value );
     }
 
     Option(int i, String value) {
         this.index = i;
-        this.value = value;
+        this.value = new ArrayList<String>();
+        this.value.add(value);
     }
 }
