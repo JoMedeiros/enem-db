@@ -1,8 +1,10 @@
 import java.util.concurrent.Callable;
+import java.util.concurrent.SubmissionPublisher;
 
 public class DataAnalyzer implements Callable {
-    DataBase data;
-    Result result;
+    private SubmissionPublisher<String> publisher;
+    private DataBase data;
+    private Result result;
     public DataAnalyzer(DataBase dataBase, Result result){
         this.data = dataBase;
         this.result = result;
@@ -10,6 +12,7 @@ public class DataAnalyzer implements Callable {
 
     @Override
     public Object call() {
+        this.publisher = new SubmissionPublisher<String>();
         while (!data.isFinished()) {
             String [] line = data.getLine();
             // Respostas
